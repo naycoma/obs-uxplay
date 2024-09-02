@@ -1,0 +1,17 @@
+#include <cstdarg>
+#include <cstring>
+#include <string>
+#include <plugin-support.hpp>
+
+const char *PLUGIN_NAME = "@CMAKE_PROJECT_NAME@";
+const char *PLUGIN_VERSION = "@CMAKE_PROJECT_VERSION@";
+
+void obs_log(int log_level, const char *format, ...) {
+    std::string plugin_name = PLUGIN_NAME;
+    std::string log_template = "[" + plugin_name + "] " + format;
+
+    va_list args;
+    va_start(args, format);
+    blogva(log_level, log_template.c_str(), args);
+    va_end(args);
+}
